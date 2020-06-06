@@ -170,11 +170,40 @@ function howManyGoals(data,teamInitial){
     const homeArrayL = filterInitialHome.length;
     const awayArrayL = filterInitialAway.length;
     console.log('HOME',homeArrayL,'AWAY',awayArrayL, 'TOTAL POINTS', totalPoints)
+    return totalPoints;
 }
 
 howManyGoals(fifaData, "CMR")
 
+function onlyInitials(data){
+    let mapInit = data.map((game) => {
+        return game['Away Team Initials']
+    });
+    let mapInitHome = data.map((game) => {
+        return game['Home Team Initials']
+    });
+    let allInitials = mapInit.concat(mapInitHome);
+//Combines away initials and home initials (in case a team only played one side)
+    let filterAllInitials = allInitials.filter((v,i) => allInitials.indexOf(v) === i);
+//filterInit removes duplicates from the allInitials array
+    console.log(mapInit);
+    console.log(filterAllInitials);
+    return (filterAllInitials);
+}
 
+onlyInitials(fifaData);
 
+function theMostGoals(data,callbackInitials,callbackGoals){
+    let allInitials = callbackInitials(data);
+    let pointsArray = [];
+    console.log(allInitials)
+    for(let i = 0; i < allInitials.length; i++){
+        pointsArray.push(callbackGoals(data,allInitials[i]));
 
+        console.log (allInitials[i],':',pointsArray[i])
+    }
+    console.log(pointsArray);
+}
+
+theMostGoals(fifaData,onlyInitials,howManyGoals)
 /* If you still have time, use the space below to work on any stretch goals of your chosing as listed in the README file. */
