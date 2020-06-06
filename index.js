@@ -170,6 +170,7 @@ function howManyGoals(data,teamInitial){
     const homeArrayL = filterInitialHome.length;
     const awayArrayL = filterInitialAway.length;
     console.log('HOME',homeArrayL,'AWAY',awayArrayL, 'TOTAL POINTS', totalPoints)
+    console.log('AVERAGE SCORE', (homeArrayL+awayArrayL) / totalPoints);
     return totalPoints;
 }
 
